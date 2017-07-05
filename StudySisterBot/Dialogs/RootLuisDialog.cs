@@ -52,7 +52,8 @@ namespace StudySisterBot.Dialogs
                 {
                     e1 = each;
                 }
-                var obj = DBController.GetObject("relations?entity=西安电子科技大学&relation=" + e1.Entity);
+                string e1e = e1.Entity.Replace(" ", "");
+                var obj = DBController.GetObject("relations?entity=西安电子科技大学&relation=" + e1e);
                 if (!iserror(obj))
                 {
                     string s = getAllValue(obj);
@@ -79,7 +80,9 @@ namespace StudySisterBot.Dialogs
                         e2 = each;
                     }
                 }
-                var obj = DBController.GetObject("relations?entity=" + e1.Entity + "&relation=" + e2.Entity);
+                string e1e = e1.Entity.Replace(" ", "");
+                string e2e = e2.Entity.Replace(" ", "");
+                var obj = DBController.GetObject("relations?entity=" + e1e + "&relation=" + e2e);
                 if (!iserror(obj))
                 {
                     string s = getAllValue(obj);
@@ -111,7 +114,8 @@ namespace StudySisterBot.Dialogs
                 {
                     e1 = each;
                 }
-                var obj = DBController.GetObject("relations?entity=西安电子科技大学&relation=" + e1.Entity);
+                string e1e = e1.Entity.Replace(" ", "");
+                var obj = DBController.GetObject("relations?entity=西安电子科技大学&relation=" + e1e);
                 if (!iserror(obj))
                 {
                     string s = getAllValue(obj);
@@ -138,7 +142,9 @@ namespace StudySisterBot.Dialogs
                         e2 = each;
                     }
                 }
-                var obj = DBController.GetObject("relations?entity="+e1.Entity+"&relation="+e2.Entity);
+                string e1e = e1.Entity.Replace(" ", "");
+                string e2e = e2.Entity.Replace(" ", "");
+                var obj = DBController.GetObject("relations?entity="+e1e+"&relation="+e2e);
                 if (!iserror(obj))
                 {
                     string s = getAllValue(obj);
