@@ -1,4 +1,6 @@
-﻿using System;
+﻿using StudySisterBot.Controllers;
+
+using System;
 using Microsoft.Bot.Builder.Luis;
 using Microsoft.Bot.Builder.Dialogs;
 using System.Threading.Tasks;
