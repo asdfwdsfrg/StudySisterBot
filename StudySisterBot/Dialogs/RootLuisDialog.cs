@@ -1,0 +1,38 @@
+﻿using System;
+using Microsoft.Bot.Builder.Luis;
+using Microsoft.Bot.Builder.Dialogs;
+using System.Threading.Tasks;
+using Microsoft.Bot.Connector;
+using Microsoft.Bot.Builder.Luis.Models;
+
+namespace StudySisterBot.Dialogs
+{
+    [LuisModel("af995f23-f3fa-42f2-800f-179578b2e585", "8e451d761a18455eaf4ba8ed5fc23a47")]
+    [Serializable]
+    public class RootLuisDialog : LuisDialog<object>
+    {
+
+        [LuisIntent("")]
+        [LuisIntent("None")]
+        public async Task None(IDialogContext context, LuisResult result)
+        {
+            string message = $"Sorry, I did not understand '{result.Query}'. Type 'help' if you need assistance.";
+            await context.PostAsync(message);
+            context.Wait(this.MessageReceived);
+        }
+
+        [LuisIntent("QueryPeople")]
+        public async Task QueryPeople(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+            var message = await activity;
+            await context.PostAsync("You QueryPeople");
+        }
+
+        [LuisIntent("QueryAttribution")]
+        public async Task QueryAttribution(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+            var message = await activity;
+            await context.PostAsync("You QueryAttribution");        
+        }
+    }
+}
