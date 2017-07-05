@@ -24,14 +24,21 @@ namespace StudySisterBot.Dialogs
         [LuisIntent("QueryPeople")]
         public async Task QueryPeople(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
+            var entities = result.Entities;
+            string s = "";
+                foreach (var i in entities) {
+                s += i.Entity;
+                }
+                
+                   
             var message = await activity;
-            await context.PostAsync("You QueryPeople");
+            await context.PostAsync(s);
         }
 
         [LuisIntent("QueryAttribution")]
         public async Task QueryAttribution(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
-            result
+            
             var message = await activity;
             await context.PostAsync("You QueryAttribution");        
         }
