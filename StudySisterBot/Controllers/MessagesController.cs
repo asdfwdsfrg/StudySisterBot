@@ -7,7 +7,8 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using Microsoft.Bot.Connector;
 using Newtonsoft.Json;
-using StudySisterBot.Controllers;
+using Microsoft.Bot.Builder.Dialogs;
+using StudySisterBot.Dialogs;
 
 namespace StudySisterBot
 {
@@ -23,19 +24,7 @@ namespace StudySisterBot
             if (activity.Type == ActivityTypes.Message)
             {
                 ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
-                DBController.LUISData LUISrs= DBController.Getentities(activity.Text);
-                
-                Activity reply;
-                if (LUISrs.intents == "None")
-                {
-                    reply = activity.CreateReply($"啊啊啊啊不知道啊！！！");
-                    await connector.Conversations.ReplyToActivityAsync(reply);
-                }
-                else
-                {
-                    DBController.ResultData rs = DBController.GetObject("info?entity=西安电子科技大");
-
-                }
+                await Conversation.SendAsync(activity, () => new RootLuisDialog());
             }
             else
             {
@@ -44,6 +33,9 @@ namespace StudySisterBot
             var response = Request.CreateResponse(HttpStatusCode.OK);
             return response;
         }
+
+
+
 
         private Activity HandleSystemMessage(Activity message)
         {
