@@ -17,7 +17,7 @@ namespace StudySisterBot.Controllers
             public List<string> result;
 
         }
-       public string GetObject(string data)
+       public ResultData GetObject(string data)
         {
             using (WebClient wc = new WebClient())
             {
@@ -25,7 +25,7 @@ namespace StudySisterBot.Controllers
                 var json = wc.DownloadString(url+data);
                 ResultData rs = (ResultData)JsonConvert.DeserializeObject(json);
 
-                return json;
+                return rs;
             }
         }
 
