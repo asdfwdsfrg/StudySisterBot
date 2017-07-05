@@ -16,7 +16,7 @@ namespace StudySisterBot.Dialogs
         [LuisIntent("None")]
         public async Task None(IDialogContext context, LuisResult result)
         {
-            string message = $"Sorry, I did not understand '{result.Query}'. Type 'help' if you need assistance.";
+            string message = "你在说啥呢兄弟，听不懂";
             await context.PostAsync(message);
             context.Wait(this.MessageReceived);
         }
