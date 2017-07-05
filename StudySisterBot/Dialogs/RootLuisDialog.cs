@@ -52,7 +52,7 @@ namespace StudySisterBot.Dialogs
                 {
                     e1 = each;
                 }
-                var obj = DBController.GetObject("relations?entity=西安电子科技大学&relation=" + e1.ToString());
+                var obj = DBController.GetObject("relations?entity=西安电子科技大学&relation=" + e1.Entity);
                 if (!iserror(obj))
                 {
                     string s = getAllValue(obj);
@@ -79,7 +79,7 @@ namespace StudySisterBot.Dialogs
                         e2 = each;
                     }
                 }
-                var obj = DBController.GetObject("relations?entity=" + e1.ToString() + "&relation=" + e2.ToString());
+                var obj = DBController.GetObject("relations?entity=" + e1.Entity + "&relation=" + e2.Entity);
                 if (!iserror(obj))
                 {
                     string s = getAllValue(obj);
@@ -138,7 +138,7 @@ namespace StudySisterBot.Dialogs
                         e2 = each;
                     }
                 }
-                var obj = DBController.GetObject("relations?entity="+e1.ToString()+"&relation="+e2.ToString());
+                var obj = DBController.GetObject("relations?entity="+e1.Entity+"&relation="+e2.Entity);
                 if (!iserror(obj))
                 {
                     string s = getAllValue(obj);
