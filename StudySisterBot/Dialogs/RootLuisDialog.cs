@@ -40,8 +40,60 @@ namespace StudySisterBot.Dialogs
         [LuisIntent("QueryPeople")]
         public async Task QueryPeople(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
-            var message = await activity;
-            await context.PostAsync("You QueryPeople");
+            if (result.Entities.Count < 1)
+            {
+                var message = await activity;
+                await context.PostAsync("呀呀呀没找到呀！");
+            }
+            else if (result.Entities.Count == 1)
+            {
+                EntityRecommendation e1 = null;
+                foreach (var each in result.Entities)
+                {
+                    e1 = each;
+                }
+                var obj = DBController.GetObject("relations?entity=西安电子科技大学&relation=" + e1.ToString());
+                if (!iserror(obj))
+                {
+                    string s = getAllValue(obj);
+                    var message = await activity;
+                    await context.PostAsync(s);
+                }
+                else
+                {
+                    var message = await activity;
+                    await context.PostAsync("抱歉没找到哦~");
+                }
+            }
+            else
+            {
+                EntityRecommendation e1 = null, e2 = null;
+                foreach (var each in result.Entities)
+                {
+                    if (each.Type == "学院" || each.Type == "部门")
+                    {
+                        e1 = each;
+                    }
+                    else
+                    {
+                        e2 = each;
+                    }
+                }
+                var obj = DBController.GetObject("relations?entity=" + e1.ToString() + "&relation=" + e2.ToString());
+                if (!iserror(obj))
+                {
+                    string s = getAllValue(obj);
+                    var message = await activity;
+                    await context.PostAsync(s);
+                }
+                else
+                {
+                    var message = await activity;
+                    await context.PostAsync("抱歉没找到哦~");
+                }
+
+            }
+
         }
 
         [LuisIntent("QueryAttribution")]
