@@ -14,18 +14,18 @@ namespace StudySisterBot.Controllers
         public class ResultData
         {
             public string type;
-            public List<string> result;
+            public string result;
 
         }
-
-
         public static ResultData GetObject(string data)
         {
             using (WebClient wc = new WebClient())
             {
+                data = data.Replace(" ", "");
                 string url = "http://bop.pescn.cc/";
+             
                 var json = wc.DownloadString(url + data);
-                ResultData rs = (ResultData)JsonConvert.DeserializeObject(json);
+                ResultData rs = JsonToObject.DataContract<ResultData> (json);
                 return rs;
             }
         }

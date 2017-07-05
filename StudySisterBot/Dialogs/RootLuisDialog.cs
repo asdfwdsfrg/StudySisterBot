@@ -111,7 +111,7 @@ namespace StudySisterBot.Dialogs
                 {
                     e1 = each;
                 }
-                var obj = DBController.GetObject("relations?entity=西安电子科技大学&relation=" + e1.ToString());
+                var obj = DBController.GetObject("relations?entity=西安电子科技大学&relation=" + e1.Entity);
                 if (!iserror(obj))
                 {
                     string s = getAllValue(obj);
