@@ -23,12 +23,19 @@ namespace StudySisterBot
             if (activity.Type == ActivityTypes.Message)
             {
                 ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
-                //DBController.LUISData LUISrs= DBController.Getentities(activity.Text);
-                DBController.ResultData rs= DBController.GetObject("info?entity=西安电子科技大");
+                DBController.LUISData LUISrs= DBController.Getentities(activity.Text);
+                
+                Activity reply;
+                if (LUISrs.intents == "None")
+                {
+                    reply = activity.CreateReply($"啊啊啊啊不知道啊！！！");
+                    await connector.Conversations.ReplyToActivityAsync(reply);
+                }
+                else
+                {
+                    DBController.ResultData rs = DBController.GetObject("info?entity=西安电子科技大");
 
-                // return our reply to the user
-                Activity reply = activity.CreateReply($"结果是{rs.type}");
-                await connector.Conversations.ReplyToActivityAsync(reply);
+                }
             }
             else
             {
