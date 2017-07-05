@@ -7,6 +7,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using Microsoft.Bot.Connector;
 using Newtonsoft.Json;
+using StudySisterBot.Controllers;
 
 namespace StudySisterBot
 {
@@ -22,11 +23,11 @@ namespace StudySisterBot
             if (activity.Type == ActivityTypes.Message)
             {
                 ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
-                // calculate something for us to return
-                int length = (activity.Text ?? string.Empty).Length;
+                //DBController.LUISData LUISrs= DBController.Getentities(activity.Text);
+                DBController.ResultData rs= DBController.GetObject("info?entity=西安电子科技大");
 
                 // return our reply to the user
-                Activity reply = activity.CreateReply($"You sent {activity.Text} which was {length} characters");
+                Activity reply = activity.CreateReply($"结果是{rs.type}");
                 await connector.Conversations.ReplyToActivityAsync(reply);
             }
             else
