@@ -31,6 +31,7 @@ namespace StudySisterBot.Dialogs
         [LuisIntent("QueryAttribution")]
         public async Task QueryAttribution(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
+            result
             var message = await activity;
             await context.PostAsync("You QueryAttribution");        
         }
