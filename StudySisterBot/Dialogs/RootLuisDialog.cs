@@ -18,13 +18,6 @@ namespace StudySisterBot.Dialogs
             return e.type == "error";
         }
 
-        public string getAllValue(DBController.ResultData d)
-        {
-            string s= "";
-            foreach (var each in d.result) s = s + each + ' ';
-            return s;
-        }
-
 
         [LuisIntent("")]
         [LuisIntent("None")]
@@ -45,16 +38,15 @@ namespace StudySisterBot.Dialogs
             }
             else if (result.Entities.Count == 1)
             {
-                EntityRecommendation e1 = null;
+                string e1 = "";
                 foreach (var each in result.Entities)
                 {
-                    e1 = each;
+                    foreach (var v in each.Resolution.Values) e1 = (string)v;
                 }
-                string e1e = e1.Entity.Replace(" ", "");
-                var obj = DBController.GetObject("relations?entity=西安电子科技大学&relation=" + e1e);
+                var obj = DBController.GetObject("relations?entity=西安电子科技大学&relation=" + e1);
                 if (!iserror(obj))
                 {
-                    string s = getAllValue(obj);
+                    string s = obj.result;
                     var message = await activity;
                     await context.PostAsync(s);
                 }
@@ -66,24 +58,23 @@ namespace StudySisterBot.Dialogs
             }
             else
             {
-                EntityRecommendation e1 = null, e2 = null;
+                string e2 = "";
+                string e1="";
                 foreach (var each in result.Entities)
                 {
                     if (each.Type == "学院" || each.Type == "部门")
                     {
-                        e1 = each;
+                        foreach (var v in each.Resolution.Values) e1 = (string)v;
                     }
                     else
                     {
-                        e2 = each;
+                        foreach (var v in each.Resolution.Values) e2 = (string)v;
                     }
                 }
-                string e1e = e1.Entity.Replace(" ", "");
-                string e2e = e2.Entity.Replace(" ", "");
-                var obj = DBController.GetObject("relations?entity=" + e1e + "&relation=" + e2e);
+                var obj = DBController.GetObject("relations?entity=" + e1 + "&relation=" + e2);
                 if (!iserror(obj))
                 {
-                    string s = getAllValue(obj);
+                    string s = obj.result;
                     var message = await activity;
                     await context.PostAsync(s);
                 }
@@ -105,18 +96,17 @@ namespace StudySisterBot.Dialogs
                 var message = await activity;
                 await context.PostAsync("呀呀呀没找到呀！");
             }
-            else if(result.Entities.Count == 1)
+            else if (result.Entities.Count == 1)
             {
-                EntityRecommendation e1 = null;
+                string e1 = "";
                 foreach (var each in result.Entities)
                 {
-                    e1 = each;
+                    foreach (var v in each.Resolution.Values) e1 = (string)v;
                 }
-                string e1e = e1.Entity.Replace(" ", "");
-                var obj = DBController.GetObject("relations?entity=西安电子科技大学&relation=" + e1e);
+                var obj = DBController.GetObject("relations?entity=西安电子科技大学&relation=" + e1);
                 if (!iserror(obj))
                 {
-                    string s = getAllValue(obj);
+                    string s = obj.result;
                     var message = await activity;
                     await context.PostAsync(s);
                 }
@@ -128,34 +118,32 @@ namespace StudySisterBot.Dialogs
             }
             else
             {
-                EntityRecommendation e1 = null, e2 = null;
+                string e2 = "";
+                string e1 = "";
                 foreach (var each in result.Entities)
                 {
-                    if (each.Type== "学院" || each.Type =="部门")
+                    if (each.Type == "学院" || each.Type == "部门")
                     {
-                        e1 = each;
+                        foreach (var v in each.Resolution.Values) e1 = (string)v;
                     }
                     else
                     {
-                        e2 = each;
+                        foreach (var v in each.Resolution.Values) e2 = (string)v;
                     }
                 }
-                string e1e = e1.Entity.Replace(" ", "");
-                string e2e = e2.Entity.Replace(" ", "");
-                var obj = DBController.GetObject("relations?entity="+e1e+"&relation="+e2e);
+                var obj = DBController.GetObject("relations?entity=" + e1 + "&relation=" + e2);
                 if (!iserror(obj))
                 {
-                    string s = getAllValue(obj);
+                    string s = obj.result;
                     var message = await activity;
                     await context.PostAsync(s);
-                }else
+                }
+                else
                 {
                     var message = await activity;
                     await context.PostAsync("抱歉没找到哦~");
                 }
-
             }
-  
+            }
         }
-    }
 }
