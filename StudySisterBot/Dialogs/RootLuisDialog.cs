@@ -1,5 +1,4 @@
 ﻿using StudySisterBot.Controllers;
-
 using System;
 using Microsoft.Bot.Builder.Luis;
 using Microsoft.Bot.Builder.Dialogs;
@@ -8,6 +7,7 @@ using Microsoft.Bot.Connector;
 using Microsoft.Bot.Builder.Luis.Models;
 using System.Collections.Generic;
 using StudySisterBot.Controllers;
+
 
 namespace StudySisterBot.Dialogs
 {
@@ -43,7 +43,9 @@ namespace StudySisterBot.Dialogs
                 string e1 = "";
                 foreach (var each in result.Entities)
                 {
-                    foreach (var v in each.Resolution.Values) e1 = (string)v;
+                    foreach (var v in each.Resolution.Values) e1 = v.ToString();
+                    if(e1 != null)
+                        e1 = e1.Split('\"')[1];
                 }
                 var obj = DBController.GetObject("relations?entity=西安电子科技大学&relation=" + e1);
                 if (!iserror(obj))
@@ -66,11 +68,13 @@ namespace StudySisterBot.Dialogs
                 {
                     if (each.Type == "学院" || each.Type == "部门")
                     {
-                        foreach (var v in each.Resolution.Values) e1 = (string)v;
+                        foreach (var v in each.Resolution.Values) e1 = v.ToString();
+                        e2 = e2.Split('\"')[1];
                     }
                     else
                     {
-                        foreach (var v in each.Resolution.Values) e2 = (string)v;
+                        foreach (var v in each.Resolution.Values) e2 = v.ToString();
+                        e2 = e2.Split('\"')[1];
                     }
                 }
                 var obj = DBController.GetObject("relations?entity=" + e1 + "&relation=" + e2);
@@ -103,7 +107,8 @@ namespace StudySisterBot.Dialogs
                 string e1 = "";
                 foreach (var each in result.Entities)
                 {
-                    foreach (var v in each.Resolution.Values) e1 = (string)v;
+                    foreach (var v in each.Resolution.Values) e1 = v.ToString();
+                    e1 = e1.Split('\"')[1];
                 }
                 var obj = DBController.GetObject("relations?entity=西安电子科技大学&relation=" + e1);
                 if (!iserror(obj))
@@ -126,11 +131,13 @@ namespace StudySisterBot.Dialogs
                 {
                     if (each.Type == "学院" || each.Type == "部门")
                     {
-                        foreach (var v in each.Resolution.Values) e1 = (string)v;
+                        foreach (var v in each.Resolution.Values) e1 = v.ToString();
+                        e1 = e1.Split('\"')[1];
                     }
                     else
                     {
-                        foreach (var v in each.Resolution.Values) e2 = (string)v;
+                        foreach (var v in each.Resolution.Values) e2 = v.ToString();
+                        e2 = e2.Split('\"')[1];
                     }
                 }
                 var obj = DBController.GetObject("relations?entity=" + e1 + "&relation=" + e2);
