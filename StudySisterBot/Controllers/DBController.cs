@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Web;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace StudySisterBot.Controllers
 {
@@ -15,7 +16,6 @@ namespace StudySisterBot.Controllers
         {
             public string type;
             public string result;
-
         }
         public static ResultData GetObject(string data)
         {
@@ -23,8 +23,7 @@ namespace StudySisterBot.Controllers
             {
                 data = data.Replace(" ", "");
                 string url = "http://bop.pescn.cc/";
-             
-                var json = wc.DownloadString(url + data);
+                var json =  wc.DownloadString(url + data);
                 ResultData rs = JsonToObject.DataContract<ResultData> (json);
                 return rs;
             }
